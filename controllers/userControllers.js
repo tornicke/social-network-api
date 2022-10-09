@@ -58,10 +58,41 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const addFriend = async (req, res) => {
+  try {
+    const addFriend = await User.findByIdAndUpdate(
+      { _id: req.params.userId.friends },
+      { $addToSet: { friends: req.body } },
+      { runValidators: true, new: true }
+    );
+    return res.status(200).json(addFriend);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Could not add friend" });
+  }
+};
+
+const deleteFriend = async (req, res) => {
+  try {
+    const deleteFriend = await User.findByIdAndDelete(
+      { _id: req.params.userId },
+      { $pull: { friends: { friendId: req.params.friendId } } },
+      { runValidators: true, new: true }
+    );
+
+    return res.status(200).json(deleteFriend);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Could not delete friend" });
+  }
+};
+
 module.exports = {
   addUser,
   getAllUsers,
   getSingleUser,
   updateUser,
   deleteUser,
+  addFriend,
+  deleteFriend,
 };

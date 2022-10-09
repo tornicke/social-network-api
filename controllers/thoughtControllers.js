@@ -1,19 +1,19 @@
 const { Thought } = require("../models");
 
-const addUser = async (req, res) => {
-  try {
-    const newUser = await User.create(req.body);
+// const addUser = async (req, res) => {
+//   try {
+//     const newUser = await User.create(req.body);
 
-    return res.status(200).json(newUser);
-  } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({ error: "Could not create User" });
-  }
-};
+//     return res.status(200).json(newUser);
+//   } catch (error) {
+//     console.error(error.message);
+//     return res.status(500).json({ error: "Could not create User" });
+//   }
+// };
 
-const getAllUsers = async (req, res) => {
+const getAllThoughts = async (req, res) => {
   try {
-    const allUsers = await User.find();
+    const allThoughts = await User.find();
     return res.status(200).json(allUsers);
   } catch (error) {
     console.error(error.message);

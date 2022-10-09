@@ -62,7 +62,7 @@ const addFriend = async (req, res) => {
   try {
     const addFriend = await User.findByIdAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body } },
+      { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     );
     return res.status(200).json(addFriend);

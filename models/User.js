@@ -21,6 +21,7 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Thought",
+        // onDelete: "CASCADE", //! CHECK THIS FOR BONUS POINTS!
       },
     ],
     friends: [

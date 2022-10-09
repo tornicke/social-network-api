@@ -1,40 +1,37 @@
 const { Thought } = require("../models");
 
-// const addUser = async (req, res) => {
-//   try {
-//     const newUser = await User.create(req.body);
-
-//     return res.status(200).json(newUser);
-//   } catch (error) {
-//     console.error(error.message);
-//     return res.status(500).json({ error: "Could not create User" });
-//   }
-// };
-
 const getAllThoughts = async (req, res) => {
   try {
-    const allThoughts = await User.find();
-    return res.status(200).json(allUsers);
+    const allThoughts = await Thought.find();
+    return res.status(200).json(allThoughts);
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({ error: "Could not find users" });
+    return res.status(500).json({ error: "Could not find thoughts" });
   }
 };
 
-const getSingleUser = async (req, res) => {
+const getSingleThought = async (req, res) => {
   try {
-    const singleUser = await User.findOne({ _id: req.params.userId })
-      .populate("thoughts")
-      .populate("friends");
-
-    return res.status(200).json(singleUser);
+    const singleThought = await Thought.findOne({ _id: req.params.ThoughtId });
+    return res.status(200).json(singleThought);
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({ error: "Could not find user" });
+    return res.status(500).json({ error: "Could not find thought" });
   }
 };
 
-const updateUser = async (req, res) => {
+const addThought = async (req, res) => {
+  try {
+    const newThought = await Thought.create(req.body);
+
+    return res.status(200).json(newThought);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Could not create thought" });
+  }
+};
+
+const updateThought = async (req, res) => {
   try {
     const updateUser = await User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -48,7 +45,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+const deleteThought = async (req, res) => {
   try {
     const deleteUser = await User.findOneAndDelete({ _id: req.params.userId });
 
@@ -60,9 +57,9 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  addUser,
-  getAllUsers,
-  getSingleUser,
-  updateUser,
-  deleteUser,
+  addThought,
+  getAllThoughts,
+  getSingleThought,
+  updateThought,
+  deleteThought,
 };

@@ -1,15 +1,21 @@
 const {
-  addUser,
-  getAllUsers,
-  getSingleUser,
-  updateUser,
-  deleteUser,
-} = require("../../controllers/userControllers");
+  getAllThoughts,
+  getSingleThought,
+  addThought,
+  updateThought,
+  deleteThought,
+} = require("../../controllers/thoughtControllers");
 
 const router = require("express").Router();
 
-router.route("/").get(getAllUsers).post(addUser);
+router.route("/").get(getAllThoughts).post(addThought);
 
-router.route("/:userId").get(getSingleUser).put(updateUser).delete(deleteUser);
+router
+  .route("/:thoughtId")
+  .get(getSingleThought)
+  .put(updateThought)
+  .delete(deleteThought);
+
+router.route(":thoughtId/reactions").post(addThought).delete(deleteThought);
 
 module.exports = router;

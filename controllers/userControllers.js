@@ -61,7 +61,7 @@ const deleteUser = async (req, res) => {
 const addFriend = async (req, res) => {
   try {
     const addFriend = await User.findByIdAndUpdate(
-      { _id: req.params.userId.friends },
+      { _id: req.params.userId },
       { $addToSet: { friends: req.body } },
       { runValidators: true, new: true }
     );

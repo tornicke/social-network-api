@@ -1,4 +1,4 @@
-const { Thought } = require("../models");
+const { Thought, User } = require("../models");
 
 const getAllThoughts = async (req, res) => {
   try {
@@ -12,7 +12,7 @@ const getAllThoughts = async (req, res) => {
 
 const getSingleThought = async (req, res) => {
   try {
-    const singleThought = await Thought.findOne({ _id: req.params.ThoughtId });
+    const singleThought = await Thought.findOne({ _id: req.params.thoughtId });
     return res.status(200).json(singleThought);
   } catch (error) {
     console.error(error.message);
@@ -23,7 +23,11 @@ const getSingleThought = async (req, res) => {
 const addThought = async (req, res) => {
   try {
     const newThought = await Thought.create(req.body);
-
+    const updateUser = await User.findOneAndUpdate(
+      { _id: req.body.userId },
+      { $addToSet: { thoughts: newThought.id } },
+      { new: true }
+    );
     return res.status(200).json(newThought);
   } catch (error) {
     console.error(error.message);
@@ -33,26 +37,57 @@ const addThought = async (req, res) => {
 
 const updateThought = async (req, res) => {
   try {
-    const updateUser = await User.findOneAndUpdate(
-      { _id: req.params.userId },
+    const updateThought = await Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
       { $set: req.body },
       { runValidators: true, new: true }
     );
-    return res.status(200).json(updateUser);
+    return res.status(200).json(updateThought);
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({ error: "Could not update user" });
+    return res.status(500).json({ error: "Could not update thought" });
   }
 };
 
 const deleteThought = async (req, res) => {
   try {
-    const deleteUser = await User.findOneAndDelete({ _id: req.params.userId });
+    const deleteThought = await Thought.findOneAndDelete({
+      _id: req.params.thoughtId,
+    });
 
-    return res.status(200).json(deleteUser);
+    return res.status(200).json(deleteThought);
   } catch (error) {
     console.error(error.message);
-    return res.status(500).json({ error: "Could not delete user" });
+    return res.status(500).json({ error: "Could not delete thought" });
+  }
+};
+
+const addReaction = async (req, res) => {
+  try {
+    const addReaction = await Thought.findByIdAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.params.reactionId } },
+      { new: true }
+    );
+    return res.status(200).json(addReaction);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Could not add reaction" });
+  }
+};
+
+const deleteReaction = async (req, res) => {
+  try {
+    const deleteReaction = await Thought.findByIdAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionID: req.params.reactionId } } },
+      { new: true }
+    );
+
+    return res.status(200).json(deleteReaction);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Could not delete reaction" });
   }
 };
 
@@ -62,4 +97,6 @@ module.exports = {
   getSingleThought,
   updateThought,
   deleteThought,
+  addReaction,
+  deleteReaction,
 };

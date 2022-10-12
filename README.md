@@ -51,3 +51,15 @@
 <li>Repository contains multiple descriptive commit messages.</li>
 <li>Repository contains a high-quality README with description and a link to a walkthrough video.</li>
 <li>Bonus: Application deletes a user's associated thoughts when the user is deleted.</li>
+
+<h2>Screenshots </h2>
+
+<h3>The below screenshot shows the functionality of getting all users:</h3>
+
+![image](https://github.com/tornicke/social-network-api/blob/main/images/Screenshot%20Social%20Network%20API.png)
+
+<h2>Required URLs:</h2>
+
+[Walkthrough Video URL](https://drive.google.com/file/d/1Sa1ZNyRDTX36RlEEKgyQWsUZGg0xYiI_/view?usp=sharing)
+
+[GitHub repository URL](https://github.com/tornicke/social-network-api)

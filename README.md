@@ -52,7 +52,7 @@
 <li>Repository contains a high-quality README with description and a link to a walkthrough video.</li>
 <li>Bonus: Application deletes a user's associated thoughts when the user is deleted.</li>
 
-<h2>Screenshots </h2>
+<h2>Screenshot </h2>
 
 <h3>The below screenshot shows the functionality of getting all users:</h3>
 

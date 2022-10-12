@@ -66,7 +66,7 @@ const addReaction = async (req, res) => {
   try {
     const addReaction = await Thought.findByIdAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: { reactions: req.params.reactionId } },
+      { $addToSet: { reactions: req.body } },
       { new: true }
     );
     return res.status(200).json(addReaction);
@@ -78,7 +78,7 @@ const addReaction = async (req, res) => {
 
 const deleteReaction = async (req, res) => {
   try {
-    const deleteReaction = await Thought.findByIdAndUpdate(
+    const deleteReaction = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionID: req.params.reactionId } } },
       { new: true }

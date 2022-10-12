@@ -21,7 +21,7 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Thought",
-        // onDelete: "CASCADE", //! CHECK THIS FOR BONUS POINTS!
+        onDelete: "CASCADE", // Delete user's associated thoughts when the user is deleted
       },
     ],
     friends: [
